@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="servlet">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../Lib/jsp-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/struts2-core-2.5.10.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/ognl-3.1.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/log4j-api-2.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/javassist-3.20.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Lib/freemarker-2.3.23.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

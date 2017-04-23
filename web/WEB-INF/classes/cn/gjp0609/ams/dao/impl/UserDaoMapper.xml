@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.gjp0609.ams.dao.UserDao">
+    <cache/>
+    <resultMap id="UserRMap" type="User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="realName" column="realName"/>
+        <result property="password" column="password"/>
+        <result property="role" column="role"/>
+        <association property="college" select="selectCollege" column="collegeId"/>
+        <collection property="subjects" select="findSubjects" column="id"/>
+    </resultMap>
+
+    <sql id="select">
+        SELECT
+            ID,
+            NAME,
+            REAL_NAME  realName,
+            PASSWORD,
+            ROLE,
+            COLLEGE_ID collegeId,
+            ROWNUM     rn
+        FROM T_AMS_USER
+    </sql>
+
+    <select id="selectUserByCdt" resultMap="UserRMap">
+        SELECT *
+        FROM (
+        <include refid="select"/>
+        <where>
+            <if test="user.id!=null">ID = #{user.id}</if>
+            <if test="user.name!=null">AND NAME = #{user.name}</if>
+            <if test="user.realName!=null">AND REAL_NAME LIKE '%${user.realName}%'</if>
+            <if test="user.password!=null">AND PASSWORD = #{user.password}</if>
+            <if test="user.role!=null">AND ROLE = #{user.role}</if>
+            <if test="user.college!=null">
+                <if test="user.college.id!=null">AND C.ID = #{user.college.id}</if>
+            </if>
+        </where>
+        )
+        <where>rn BETWEEN #{firstRow} and #{lastRow}</where>
+    </select>
+
+
+    <select id="selectCollege" resultType="College">
+        SELECT
+            ID,
+            NAME
+        FROM T_AMS_COLLEGE
+        WHERE ID = #{collegeId}
+    </select>
+    <select id="findSubjects" resultType="Subject">
+        SELECT
+            ID,
+            NAME
+        FROM T_AMS_TEACHER_SUBJECT T LEFT JOIN T_AMS_SUBJECT S ON T.SID = S.ID
+        WHERE T.TID = #{id}
+    </select>
+    <insert id="insertUser">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+            SELECT T_AMS_USER_SEQ.nextval FROM dual
+        </selectKey>
+        INSERT INTO T_AMS_USER VALUES (#{id},#{name},#{realName},#{password},#{role},#{college.id})
+    </insert>
+
+    <select id="selectTotalRows" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM T_AMS_USER
+        WHERE ROLE = 'teacher'
+    </select>
+
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="user" namespace="/user" extends="struts-default">
+
+        <global-results>
+            <result name="success" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">queryInteractStu</param>
+            </result>
+            <result name="login" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">login</param>
+            </result>
+        </global-results>
+
+        <action name="register" class="cn.gjp0609.ams.action.UserAction" method="register">
+            <result name="register" type="redirectAction">
+                <param name="namespace">/common</param>
+                <param name="actionName">register</param>
+            </result>
+        </action>
+        <action name="userLogin" class="cn.gjp0609.ams.action.UserAction" method="userLogin"/>
+        <action name="fuzzySelect" class="cn.gjp0609.ams.action.UserAction" method="fuzzySelect">
+            <result name="success" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">queryTeacherStu</param>
+            </result>
+        </action>
+        <action name="queryAll" class="cn.gjp0609.ams.action.UserAction" method="queryAll">
+            <result name="success" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">queryTeacherStu</param>
+            </result>
+        </action>
+    </package>
+
+    <!-- 公共package -->
+    <package name="common" namespace="/" extends="struts-default">
+        <action name="*Stu">
+            <result name="success" type="dispatcher">/WEB-INF/student/{1}.jsp</result>
+        </action>
+        <action name="*">
+            <result name="success" type="dispatcher">/WEB-INF/{1}.jsp</result>
+        </action>
+        <action name="getVCode" class="cn.gjp0609.ams.action.CommonAction" method="getVCode"/>
+    </package>
+</struts>
