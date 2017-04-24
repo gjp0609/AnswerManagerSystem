@@ -15,10 +15,10 @@ import java.util.List;
 public class UserAction extends BaseAction {
     private Page page = new Page();
     // 模糊查询输入的名字
-    private String name;
-    private Integer type;
+    private String name = "";
+    private Integer type = 0;
 
-    private String role;
+    private String role = "";
     private String vcode;
     private User user = new User();
     private List<User> userList = new ArrayList<>();
@@ -51,8 +51,13 @@ public class UserAction extends BaseAction {
             College college = new College();
             college.setName(name);
             u.setCollege(college);
-        } else // 教师姓名
+        } else if (type == 2) {
+            // 教师姓名
             u.setRealName(name);
+        } else {
+            // 非分页
+
+        }
         userList = new UserServiceImpl().fuzzySelect(u, page);
 //        System.out.println(userList);
         return SUCCESS;

@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         try {
             if (user == null) throw new RuntimeException("USI -> userLogin -> 收到的 user 为空");
             UserDao dao = MyBatisUtils.getMapper(UserDao.class);
-            int totalRows = dao.selectTotalRows();
+            int totalRows = dao.selectTotalRows(user);
             page.setTotalRows(totalRows);
             user.setRole("teacher");
             userList = dao.selectUserByCdt(user,

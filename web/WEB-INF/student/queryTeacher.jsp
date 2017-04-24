@@ -27,7 +27,6 @@
             color: gray;
             text-align: center;
         }
-
     </style>
     <link rel="stylesheet" type="text/css" href="<s:url namespace="/" value="/css/bootstrap-responsive.min.css"/>">
     <link rel="shortcut icon" href="<s:url value="../favicon.ico"/>">
@@ -104,7 +103,6 @@
                     </div>
                 </div>
             </th>
-
         </tr>
         <s:iterator value="userList" var="user">
             <tr style="height: 30px;">
@@ -128,22 +126,33 @@
     <div class="row">
         <div class="pagination" style="text-align: center;">
             <ul>
-                <li>
-                    <s:if test="page.hasPrePage">
-                        <a href="<s:url namespace='/user' action='queryAll'>
-                            <s:param name="page.pageIndex" value="page.pageIndex-1"/></s:url>">上一页</a></s:if>
-                    <s:else><a href="#">上一页</a></s:else>
+                <s:if test="page.hasPrePage">
+                <li><a href="<s:url namespace='/user' action='fuzzySelect'>
+                            <s:param name="page.pageIndex" value="page.pageIndex-1"/></s:url>&type=<s:property value="type"/>&name=<s:property value="name"/>">上一页</a></s:if>
                 </li>
-                <li>
-                    <s:if test="page.hasNextPage">
-                        <a href="<s:url namespace='/user' action='queryAll'>
-                            <s:param name="page.pageIndex" value="page.pageIndex+1"/></s:url>">下一页</a></s:if>
-                    <s:else><a href="#">下一页</a></s:else>
-                </li>
+                <s:else>
+                    <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
+                </s:else>
+                <s:iterator value="new int[page.totalPages]" status="st">
+                    <s:if test="#st.index+1 == page.pageIndex">
+                        <li class="disabled"><a class="disabled" href="javascript:void(0)">
+                            <s:property value="#st.index+1"/></a></li>
+                    </s:if>
+                    <s:else>
+                        <li><a href="<s:url namespace='/user' action='queryAll'>
+                             <s:param name="page.pageIndex" value="#st.index+1"/></s:url>">
+                            <s:property value="#st.index+1"/></a></li>
+                    </s:else>
+                </s:iterator>
 
-                <%--<li class="disabled"><a href="javascript:void(0)">上一页</a></li>--%>
-                <%--<li><a href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a></li>--%>
-                <%--<li><a href="javascript:void(0)">下一页</a></li>--%>
+                <s:if test="page.hasNextPage">
+                    <li><a href="<s:url namespace='/user' action='fuzzySelect'>
+                            <s:param name="page.pageIndex" value="page.pageIndex+1"/></s:url>&type=<s:property value="type"/>&name=<s:property value="name"/>">下一页</a>
+                    </li>
+                </s:if>
+                <s:else>
+                    <li class="disabled"><a href="javascript:void(0)">下一页</a></li>
+                </s:else>
             </ul>
         </div>
     </div>
@@ -165,7 +174,7 @@
         if (type === "2") {
             $("#sele").find("option:last-child").get(0).selected = "selected";
         } else {
-            $("#sele").find("option:first-child").prop(selected);
+            $("#sele").find("option:first-child").get(0).selected = "selected";
         }
     });
 

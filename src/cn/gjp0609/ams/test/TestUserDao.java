@@ -28,9 +28,12 @@ class TestUserDao {
     void testSelect() {
         UserDao dao = MyBatisUtils.getMapper(UserDao.class);
         User user = new User();
-        user.setRealName("");
+//        user.setRealName("");
+        College college = new College();
+        college.setName("软件");
+        user.setCollege(college);
         user.setRole("teacher");
-        List<User> userList = dao.selectUserByCdt(user, 3, 5);
+        List<User> userList = dao.selectUserByCdt(user, 1, 3);
         for (User u : userList) {
             System.out.println(u);
         }
