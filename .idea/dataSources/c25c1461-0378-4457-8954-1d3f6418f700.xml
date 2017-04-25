@@ -4,9 +4,9 @@
     <root id="1"/>
     <schema id="2" parent="1" name="HR">
       <ObjectId>43</ObjectId>
-      <IntrospectionTimestamp>2017-04-24.11:26:16</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2017-04-24.19:59:20</IntrospectionTimestamp>
       <CreatedTimestamp>2014-05-29.13:21:53</CreatedTimestamp>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <CommentsHash>212605363307689</CommentsHash>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -230,9 +230,9 @@ departments and countries tables.</Comment>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="44" parent="2" name="T_AMS_INTERACT">
-      <ObjectId>21400</ObjectId>
-      <CreatedTimestamp>2017-04-24.11:26:06</CreatedTimestamp>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <ObjectId>21405</ObjectId>
+      <CreatedTimestamp>2017-04-24.19:59:13</CreatedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="45" parent="2" name="T_AMS_SUBJECT">
@@ -1074,7 +1074,7 @@ located. Foreign key to country_id column of the countries table.</Comment>
     </column>
     <column id="176" parent="44" name="STATUS">
       <Position>4</Position>
-      <DataType>VARCHAR2(1)|0</DataType>
+      <DataType>VARCHAR2(4)|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="177" parent="44" name="CREATE_DATE">
@@ -1098,35 +1098,35 @@ located. Foreign key to country_id column of the countries table.</Comment>
       <Position>9</Position>
       <DataType>NUMBER(6)|0</DataType>
     </column>
-    <index id="182" parent="44" name="SYS_C007334">
-      <ObjectId>21401</ObjectId>
+    <index id="182" parent="44" name="SYS_C007348">
+      <ObjectId>21406</ObjectId>
       <NameSurrogate>1</NameSurrogate>
-      <CreatedTimestamp>2017-04-24.11:26:06</CreatedTimestamp>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <CreatedTimestamp>2017-04-24.19:59:13</CreatedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <TablespaceName>USERS</TablespaceName>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="183" parent="44" name="SYS_C007334">
+    <key id="183" parent="44" name="SYS_C007348">
       <NameSurrogate>1</NameSurrogate>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <ColNames>ID</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <UnderlyingIndexName>SYS_C007334</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C007348</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="184" parent="44" name="SYS_C007335">
+    <foreign-key id="184" parent="44" name="SYS_C007349">
       <NameSurrogate>1</NameSurrogate>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <ColNames>SID</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
       <RefTableName>T_AMS_USER</RefTableName>
       <RefKeyName>SYS_C007286</RefKeyName>
       <OnDelete>restrict</OnDelete>
     </foreign-key>
-    <foreign-key id="185" parent="44" name="SYS_C007336">
+    <foreign-key id="185" parent="44" name="SYS_C007350">
       <NameSurrogate>1</NameSurrogate>
-      <ModifiedTimestamp>2017-04-24.11:26:06</ModifiedTimestamp>
+      <ModifiedTimestamp>2017-04-24.19:59:13</ModifiedTimestamp>
       <ColNames>TID</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
       <RefTableName>T_AMS_USER</RefTableName>

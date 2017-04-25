@@ -42,7 +42,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#"><span style="color:orange">zpark教学互动系统</span></a>
+            <a class="brand" href="<s:url value="../login.jsp"/>"><span style="color:orange">zpark教学互动系统</span></a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="#">欢迎：<s:property value="#session.user.realName"/></a></li>
@@ -56,7 +56,6 @@
                             <li class="nav-header">其它功能</li>
                             <li><a href="#">离开</a></li>
                         </ul>
-
                     </li>
                 </ul>
             </div>
@@ -109,11 +108,17 @@
                 <th style="text-align: center;"><s:property value="#user.name"/></th>
                 <th style="text-align: center;"><s:property value="#user.realName"/></th>
                 <th style="text-align: center;"><s:property value="#user.college.name"/></th>
-                <th style="text-align: center;"><s:iterator value="#user.subjects" var="sub" status="st">
-                    <s:if test="#st.last"> <s:property value="#sub.name"/> </s:if>
-                    <s:else> <s:property value="#sub.name"/>, </s:else> </s:iterator></th>
                 <th style="text-align: center;">
-                    <a href="<s:url namespace="/" action="createInteractStu"/>" style="text-decoration: none;"
+                    <s:iterator value="#user.subjects" var="sub" status="st">
+
+                        <s:if test="#st.last"> <s:property value="#sub.name"/> </s:if>
+
+                        <s:else> <s:property value="#sub.name"/>, </s:else>
+
+                    </s:iterator></th>
+                <th style="text-align: center;">
+                    <a href="<s:url namespace="/" action="createInteractStu"/>?teacherId=<s:property value="#user.id"/>"
+                       style="text-decoration: none;"
                        class="btn btn-primary">发起提问</a>
                     &nbsp;&nbsp;&nbsp;
                 </th>
@@ -133,6 +138,7 @@
                 <s:else>
                     <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
                 </s:else>
+                <%--------------------------------------------%>
                 <s:iterator value="new int[page.totalPages]" status="st">
                     <s:if test="#st.index+1 == page.pageIndex">
                         <li class="disabled"><a class="disabled" href="javascript:void(0)">
@@ -140,14 +146,17 @@
                     </s:if>
                     <s:else>
                         <li><a href="<s:url namespace='/user' action='queryAll'>
-                             <s:param name="page.pageIndex" value="#st.index+1"/></s:url>">
+                            <%-- ?page.pageIndex=3 --%>
+                             <s:param name="page.pageIndex" value="#st.index+1"/>
+                        </s:url>">
                             <s:property value="#st.index+1"/></a></li>
                     </s:else>
                 </s:iterator>
-
+                <%-------------------------------------------%>
                 <s:if test="page.hasNextPage">
                     <li><a href="<s:url namespace='/user' action='fuzzySelect'>
-                            <s:param name="page.pageIndex" value="page.pageIndex+1"/></s:url>&type=<s:property value="type"/>&name=<s:property value="name"/>">下一页</a>
+                            <s:param name="page.pageIndex" value="page.pageIndex+1"/>
+                            </s:url>&type=<s:property value="type"/>&name=<s:property value="name"/>">下一页</a>
                     </li>
                 </s:if>
                 <s:else>
@@ -184,9 +193,6 @@
         if (userList === "[]") $("#none").show();
         else $("#none").hide();
     });
-
-    $("#")
-
 
 </script>
 </body>

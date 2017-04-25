@@ -47,4 +47,8 @@ public interface UserDao {
      * @return 查得的互动集合
      */
     public List<Interact> selectInteractByCdt(@Param("interact") Interact interact, @Param("firstRow") Integer firstRow, @Param("lastRow") Integer lastRow);
+
+    public int selTotalInterRows(Interact interacts);
+
+    public int deleteInteract(Integer id);
 }

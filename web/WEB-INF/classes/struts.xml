@@ -8,10 +8,7 @@
     <package name="user" namespace="/user" extends="struts-default">
 
         <global-results>
-            <result name="success" type="chain">
-                <param name="namespace">/</param>
-                <param name="actionName">queryInteractStu</param>
-            </result>
+            <result name="success" type="chain">fuzzySelectInteract</result>
             <result name="login" type="chain">
                 <param name="namespace">/</param>
                 <param name="actionName">login</param>
@@ -36,6 +33,24 @@
                 <param name="namespace">/</param>
                 <param name="actionName">queryTeacherStu</param>
             </result>
+        </action>
+
+        <action name="fuzzySelectInteract" class="cn.gjp0609.ams.action.UserAction" method="fuzzySelectInteract">
+            <result name="success" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">queryInteractStu</param>
+            </result>
+        </action>
+
+        <action name="interactDetails" class="cn.gjp0609.ams.action.UserAction" method="interactDetails">
+            <result name="success" type="chain">
+                <param name="namespace">/</param>
+                <param name="actionName">interactDetailStu</param>
+            </result>
+        </action>
+
+        <action name="deleteInteract" class="cn.gjp0609.ams.action.UserAction" method="deleteInteract">
+            <result name="success" type="chain">fuzzySelectInteract</result>
         </action>
     </package>
 

@@ -2,6 +2,7 @@ package cn.gjp0609.ams.test;
 
 import cn.gjp0609.ams.dao.UserDao;
 import cn.gjp0609.ams.entity.College;
+import cn.gjp0609.ams.entity.Interact;
 import cn.gjp0609.ams.entity.User;
 import cn.gjp0609.ams.utils.MyBatisUtils;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,19 @@ class TestUserDao {
         List<User> userList = dao.selectUserByCdt(user, 1, 3);
         for (User u : userList) {
             System.out.println(u);
+        }
+    }
+
+    @Test
+    void selectInteract() {
+        UserDao dao = MyBatisUtils.getMapper(UserDao.class);
+        Interact interact = new Interact();
+        User user=new User();
+        user.setRealName("白");
+        interact.setTeacher(user);
+        List<Interact> interactList = dao.selectInteractByCdt(interact, 1, 5);
+        for (Interact i : interactList) {
+            System.out.println(i);
         }
     }
 

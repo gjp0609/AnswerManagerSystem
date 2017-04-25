@@ -2,8 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: gjp06
-  Date: 17.4.21
-  Time: 19:38
+  Date: 17.4.24
+  Time: 14:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +13,7 @@
 <head>
     <title>我的全部互动</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="<s:url value="/css/bootstrap.min.css" />">
+    <link rel="stylesheet" type="text/css" href="<s:url value="/css/bootstrap.min.css"/>">
     <style type="text/css">
         body {
             padding-top: 60px;
@@ -44,42 +44,43 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#"><span style="color:orange">zpark教学互动系统</span></a>
+            <a class="brand" href="<s:url namespace="/" action="login"/>">
+                <span style="color:orange">zpark教学互动系统</span></a>
 
             <div class="nav-collapse collapse">
-
-
                 <ul class="nav">
-                    <li class="active"><a href="#">欢迎：<s:property value="#session.user.realName"/></a></li>
+                    <li class="active"><a href="#">欢迎：xxx</a></li>
                     <li><a href="#">关于</a></li>
                     <li><a href="#">联系我们</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能菜单 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">功能菜单
+                            <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<s:url namespace="/user" action="queryAll"/>">创建互动</a></li>
+                            <li><a href="<s:url namespace="/user" action="fuzzySelect"/>">创建互动</a></li>
                             <li class="divider">ro</li>
                             <li class="nav-header">其它功能</li>
                             <li><a href="#">离开</a></li>
                         </ul>
-
                     </li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
         </div>
     </div>
 </div>
 <div class="container">
-    <form action="#" method="post" id="queryForm">
+    <form action="<s:url namespace="/user" action="fuzzySelectInteract"/>" method="post" id="queryForm">
 
         <div class="input-append" style="padding-left:40px">
-            <select title="" class="span3" id="sele" style="width: 150px; margin-left: 10px; border-radius:4px;">
+            <select title="" name="statusType" class="span3" id="sel"
+                    style="width: 150px; margin-left: 10px; border-radius:4px;">
                 <option value="-1" selected="selected">未回复</option>
                 <option value="2">已回复</option>
             </select>
-            <%--<select class="span3" id="sele" style="width: 150px;margin-left: 10px; border-radius:4px;">--%>
-            <%--<option value="-1" selected="selected">院系名称</option>--%>
-            <%--<option value="2">教师姓名</option>--%>
-            <%--</select>--%>
+            <select title="" name="type" class="span3" id="sele"
+                    style="width: 150px;margin-left: 10px; border-radius:4px;">
+                <option value="-1" selected="selected">院系名称</option>
+                <option value="2">教师姓名</option>
+            </select>
 
             <input value="" class="span2" type="text" placeholder="请输入搜素信息" name="name"
                    style="width: 250px; height: 30px;margin-left: 10px; border-radius:4px;">&nbsp;
@@ -91,12 +92,15 @@
         <thead>
 
         <tr>
-            <th style="text-align: center;"><a href="javascript:void(0)"
-                                               style="text-decoration: none; text-align: center">互动标题</a>
+            <th style="text-align: center;">
+                <a href="javascript:void(0)" style="text-decoration: none; text-align: center">互动标题</a>
             </th>
-            <th style="text-align: center;"><a href="javascript:void(0)" style="text-decoration: none;">教师名称</a></th>
-            <th style="text-align: center;"><a href="javascript:void(0)" style="text-decoration: none;">学生名称</a></th>
-            <th style="text-align: center;"><a href="javascript:void(0)" style="text-decoration: none;">是否回复</a></th>
+            <th style="text-align: center;">
+                <a href="javascript:void(0)" style="text-decoration: none;">教师名称</a></th>
+            <th style="text-align: center;">
+                <a href="javascript:void(0)" style="text-decoration: none;">学生名称</a></th>
+            <th style="text-align: center;">
+                <a href="javascript:void(0)" style="text-decoration: none;">是否回复</a></th>
             <!-- <th style="text-align: center;"><a href="javascript:void(0)"  style="text-decoration: none;">是否被举报</a></th> -->
             <th style="text-align: center;"><a href="javascript:void(0)" style="text-decoration: none;">操作</a></th>
 
@@ -112,58 +116,29 @@
                     <div style="margin-top: 50px">
                         亲～没有找到符合条件的互动～
                     </div>
-                    <div style="font-size: 15px; margin-top: 6px"><a href="#"
-                                                                     style="text-decoration: none; margin-left: 100px;">那我创建一条</a>
+                    <div style="font-size: 15px; margin-top: 6px">
+                        <a href="#" style="text-decoration: none; margin-left: 100px;">那我创建一条</a>
                     </div>
-
                 </div>
             </th>
-        <tr height="10px;">
-        <tr>
-            <th style="text-align: center;">oracle的问题</th>
-            <th style="text-align: center;">杨艳玲</th>
-            <th style="text-align: center;">李XX</th>
-            <th style="text-align: center;">是</th>
+            <s:iterator var="interact" value="interactList">
+        <tr style="height: 20px">
+            <th style="text-align: center;"><s:property value="#interact.title"/></th>
+            <th style="text-align: center;"><s:property value="#interact.teacher.realName"/></th>
+            <th style="text-align: center;"><s:property value="#interact.student.realName"/></th>
+            <th style="text-align: center;"><s:property value="#interact.status"/></th>
             <th style="text-align: center; ">
-                <a href=" #" style="text-decoration: none;" class="btn btn-info">查看详情</a>
+                <a href="<s:url namespace='/user' action='interactDetails'/>?interactId=<s:property value="#interact.id"/>"
+                   style="text-decoration: none;" class="btn btn-info">查看详情</a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="#" class="btn btn-danger">删除</a>
+                <a href="<s:url namespace='/user' action='deleteInteract'/>?interactId=<s:property value="#interact.id"/>"
+                   style="text-decoration: none;" class="btn btn-danger">删除</a>
             </th>
         </tr>
-        <tr>
-            <th style="text-align: center;">关于jsp的问题</th>
-            <th style="text-align: center;">陈艳男</th>
-            <th style="text-align: center;">李XX</th>
-            <th style="text-align: center;">否</th>
-            <th style="text-align: center; ">
-                <a href=" #" style="text-decoration: none;" class="btn btn-info">查看详情</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="#" class="btn btn-danger">删除</a>
-            </th>
-        </tr>
-        <tr>
-            <th style="text-align: center;">电脑老重启</th>
-            <th style="text-align: center;">杨冬冬</th>
-            <th style="text-align: center;">李XX</th>
-            <th style="text-align: center;">否</th>
-            <th style="text-align: center; ">
-                <a href=" #" style="text-decoration: none;" class="btn btn-info">查看详情</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="#" class="btn btn-danger">删除</a>
-            </th>
-        </tr>
-        <tr>
-            <th style="text-align: center;">Java中int类型的数据范围</th>
-            <th style="text-align: center;">杨冬冬</th>
-            <th style="text-align: center;">李XX</th>
-            <th style="text-align: center;">否</th>
-            <th style="text-align: center; ">
-                <a href=" #" style="text-decoration: none;" class="btn btn-info">查看详情</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="#" class="btn btn-danger">删除</a>
-            </th>
-        </tr>
+        </s:iterator>
 
+        <%-- 确保结果太少时其他行高不变 --%>
+        <tr style="height: auto"></tr>
         </tbody>
     </table>
 
@@ -184,5 +159,6 @@
 </div> <!-- /container -->
 <script type="text/javascript" src="<s:url value="/js/jquery-1.5.2.min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/js/bootstrap.js"/>"></script>
+<s:debug/>
 </body>
 </html>

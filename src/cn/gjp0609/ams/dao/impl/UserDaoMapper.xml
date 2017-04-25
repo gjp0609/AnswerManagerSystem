@@ -29,6 +29,10 @@
             ROWNUM       rn
         FROM T_AMS_USER U LEFT JOIN T_AMS_COLLEGE C ON U.COLLEGE_ID = C.ID
     </sql>
+    <delete id="deleteInteract">
+        DELETE FROM T_AMS_INTERACT
+        WHERE ID = #{id}
+    </delete>
 
     <select id="selectUserByCdt" resultMap="UserRMap">
         SELECT *
@@ -76,27 +80,82 @@
         </where>
     </select>
     <!-- 通用互动查询 -->
-    <sql id="selectInteract">
-        SELECT
-            ID,
-            TITLE,
-            DETAILS,
-            STATUS,
-            CREATE_DATE,
-            ANSWER,
-            ANSWER_DATE,
-            SID,
-            TID
-        FROM T_AMS_INTERACT
-    </sql>
     <resultMap id="interactRM" type="Interact">
-        <id property="id" column="id"/>
+        <id property="id" column="interactId"/>
         <result property="title" column="title"/>
         <result property="details" column="details"/>
         <result property="status" column="status"/>
+        <result property="createDate" column="createDate"/>
+        <result property="answer" column="answer"/>
+        <result property="answerDate" column="answerDate"/>
+        <association property="student" select="findStudent" column="studentId"/>
+        <association property="teacher" javaType="User">
+            <id property="id" column="teacherId"/>
+            <result property="name" column="name"/>
+            <result property="realName" column="realName"/>
+            <result property="password" column="password"/>
+            <result property="role" column="role"/>
+            <association property="college" javaType="College">
+                <id property="id" column="collegeId"/>
+                <result property="name" column="collageName"/>
+            </association>
+        </association>
     </resultMap>
-    <select id="selectInteractByCdt" resultType="Interact">
-
+    <sql id="selectInteract">
+        SELECT
+            I.ID          interactId,
+            I.TITLE       title,
+            I.DETAILS     details,
+            I.STATUS      status,
+            I.CREATE_DATE createDate,
+            I.ANSWER      answer,
+            I.ANSWER_DATE answerDate,
+            I.SID         studentId,
+            T.ID          teacherId,
+            T.NAME        name,
+            T.REAL_NAME   realName,
+            T.PASSWORD    password,
+            T.ROLE        role,
+            C.ID          collegeId,
+            C.NAME        collegeName,
+            ROWNUM        rn
+        FROM T_AMS_INTERACT I LEFT JOIN T_AMS_USER T ON I.TID = T.ID
+            LEFT JOIN T_AMS_COLLEGE C ON T.COLLEGE_ID = C.ID
+    </sql>
+    <select id="selectInteractByCdt" resultMap="interactRM">
+        SELECT * FROM (
+        <include refid="selectInteract"/>
+        <where>
+            <if test="interact.id!=null">I.ID = #{interact.id}</if>
+            <if test="interact.teacher!=null">
+                <if test="interact.teacher.realName!=null">AND T.REAL_NAME like '%${interact.teacher.realName}%'</if>
+                <if test="interact.teacher.college!=null">
+                    <if test="interact.teacher.college.name!=null">
+                        AND C.NAME like '%${interact.teacher.college.name}%'
+                    </if>
+                </if>
+            </if>
+        </where>
+        )
+        WHERE rn BETWEEN #{firstRow} AND #{lastRow}
     </select>
-
+    <select id="findStudent" resultMap="UserRMap">
+        <include refid="select"/>
+        <where>
+            U.ID = #{studentId}
+        </where>
+    </select>
+    <select id="selTotalInterRows" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM T_AMS_INTERACT I LEFT JOIN T_AMS_USER T ON I.TID = T.ID
+        LEFT JOIN T_AMS_COLLEGE C ON T.COLLEGE_ID = C.ID
+        <where>
+            <if test="teacher!=null">
+                <if test="teacher.id!=null">T.NAME LIKE '%${teacher.name}%'</if>
+                <if test="teacher.college!=null">
+                    <if test="teacher.college.name!=null">C.NAME LIKE '%${teacher.college.name}%'</if>
+                </if>
+            </if>
+        </where>
+    </select>
 </mapper>

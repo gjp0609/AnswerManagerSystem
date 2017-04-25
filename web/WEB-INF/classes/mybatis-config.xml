@@ -13,6 +13,7 @@
         <typeAlias type="cn.gjp0609.ams.entity.User" alias="User"/>
         <typeAlias type="cn.gjp0609.ams.entity.College" alias="College"/>
         <typeAlias type="cn.gjp0609.ams.entity.Subject" alias="Subject"/>
+        <typeAlias type="cn.gjp0609.ams.entity.Interact" alias="Interact"/>
     </typeAliases>
 
     <environments default="oracle">

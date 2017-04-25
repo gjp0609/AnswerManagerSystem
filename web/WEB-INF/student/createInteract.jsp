@@ -38,10 +38,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#"><span style="color:orange">zpark教学互动系统</span></a>
+            <a class="brand" href="<s:url value="../login.jsp"/>"><span style="color:orange">zpark教学互动系统</span></a>
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li><a href="#" style="color: white;">欢迎：xxx</a></li>
+                    <li><a href="#" style="color: white;">欢迎：<s:property value="#session.user.realName"/></a></li>
                     <li><a href="#">关于</a></li>
                     <li><a href="#">联系我们</a></li>
                     <li class="dropdown active">
@@ -91,6 +91,6 @@
         <p>&copy; Company 2016</p>
     </footer>
 
-</div> <!-- /container -->
+</div>
 </body>
 </html>
