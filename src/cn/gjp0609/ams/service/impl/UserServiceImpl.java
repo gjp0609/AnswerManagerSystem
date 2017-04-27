@@ -33,10 +33,10 @@ public class UserServiceImpl implements UserService {
     public int register(User user) {
         int result = 0;
         try {
-            if (user == null) throw new RuntimeException("USI -> userLogin -> 收到的 user 为空");
+            if (user == null) throw new RuntimeException("USI -> register -> 收到的 user 为空");
             UserDao dao = MyBatisUtils.getMapper(UserDao.class);
             result = dao.insertUser(user);
-            if (result != 1) throw new RuntimeException("USI -> userLogin -> 注册失败");
+            if (result != 1) throw new RuntimeException("USI -> register -> 注册失败");
             MyBatisUtils.commit();
         } catch (Exception e) {
             MyBatisUtils.rollback();
@@ -85,18 +85,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteInteract(Integer id) {
+    public void deleteInteract(Integer id) {
         int result = 0;
         try {
-            if (id == null) throw new RuntimeException("USI -> fuzzFindInteract -> 收到的 id 为空");
+            if (id == null) throw new RuntimeException("USI -> deleteInteract -> 收到的 id 为空");
             UserDao dao = MyBatisUtils.getMapper(UserDao.class);
             result = dao.deleteInteract(id);
-            if (result == 0) throw new RuntimeException("USI -> fuzzFindInteract -> 删除失败");
+            if (result == 0) throw new RuntimeException("USI -> deleteInteract -> 删除失败");
             MyBatisUtils.commit();
         } catch (Exception e) {
             MyBatisUtils.rollback();
             e.printStackTrace();
         }
-        return result;
+    }
+
+    @Override
+    public void createInteract(Interact interact) {
+        int result = 0;
+        try {
+            if (interact == null) throw new RuntimeException("USI -> createInteract -> 收到的 id 为空");
+            UserDao dao = MyBatisUtils.getMapper(UserDao.class);
+            result = dao.insertInteract(interact);
+            if (result == 0) throw new RuntimeException("USI -> createInteract -> 插入失败");
+            MyBatisUtils.commit();
+        } catch (Exception e) {
+            MyBatisUtils.rollback();
+            e.printStackTrace();
+        }
     }
 }

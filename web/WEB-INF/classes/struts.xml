@@ -52,6 +52,10 @@
         <action name="deleteInteract" class="cn.gjp0609.ams.action.UserAction" method="deleteInteract">
             <result name="success" type="chain">fuzzySelectInteract</result>
         </action>
+
+        <action name="createInteract" class="cn.gjp0609.ams.action.UserAction" method="createInteract">
+            <result name="success" type="redirectAction">fuzzySelectInteract</result>
+        </action>
     </package>
 
     <!-- 公共package -->

@@ -18,5 +18,7 @@ public interface UserService {
 
     public List<Interact> fuzzFindInteract(Interact interact, Page page);
 
-    public int deleteInteract(Integer id);
+    public void deleteInteract(Integer id);
+
+    public void createInteract(Interact interact);
 }

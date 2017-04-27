@@ -77,7 +77,7 @@
         </div>
     </form>
 
-    <table class="table table-hover" style="height: 250px;">
+    <table class="table table-hover" style="height: 280px;">
         <thead>
         <tr>
             <th style="text-align: center;"><a href="javascript:void(0)"
@@ -98,7 +98,8 @@
                         亲～没有找到符合条件的联系人呦～
                     </div>
                     <div style="font-size: 15px; margin-top: 10px;margin-right: 100px">
-                        <a href="#" style="text-decoration: none; margin-left: 100px;">那我添加一条</a>
+                        <a href="<s:url namespace="/user" action="fuzzySelect"/>"
+                           style="text-decoration: none; margin-left: 100px;">那我添加一条</a>
                     </div>
                 </div>
             </th>
@@ -133,7 +134,10 @@
             <ul>
                 <s:if test="page.hasPrePage">
                 <li><a href="<s:url namespace='/user' action='fuzzySelect'>
-                            <s:param name="page.pageIndex" value="page.pageIndex-1"/></s:url>&type=<s:property value="type"/>&name=<s:property value="name"/>">上一页</a></s:if>
+                                <s:param name="page.pageIndex" value="page.pageIndex-1"/>
+                                <s:param name="type" value="type"/>
+                                <s:param name="name" value="name"/>
+                            </s:url>">上一页</a></s:if>
                 </li>
                 <s:else>
                     <li class="disabled"><a href="javascript:void(0)">上一页</a></li>

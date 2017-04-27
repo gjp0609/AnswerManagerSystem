@@ -23,7 +23,7 @@ public class UserAction extends BaseAction {
     // 验证码
     private String vcode;
 
-
+    private Interact interact = new Interact();
     //
     private Integer interactId = 0;
     private User user = new User();
@@ -89,7 +89,8 @@ public class UserAction extends BaseAction {
         // 未回复
         if (statusType == -1) interact.setStatus("否");
             // 已回复
-        else interact.setStatus("是");
+        else if (statusType == 2) interact.setStatus("是");
+        else interact.setStatus(null);
         interact.setTeacher(teacher);
 
         interactList = new UserServiceImpl().fuzzFindInteract(interact, page);
@@ -105,6 +106,12 @@ public class UserAction extends BaseAction {
 
     public String deleteInteract() {
         new UserServiceImpl().deleteInteract(interactId);
+        return SUCCESS;
+    }
+
+    public String createInteract() {
+        System.out.println("----  --        -" + interact);
+        new UserServiceImpl().createInteract(interact);
         return SUCCESS;
     }
 
@@ -186,5 +193,13 @@ public class UserAction extends BaseAction {
 
     public void setStatusType(Integer statusType) {
         this.statusType = statusType;
+    }
+
+    public Interact getInteract() {
+        return interact;
+    }
+
+    public void setInteract(Interact interact) {
+        this.interact = interact;
     }
 }

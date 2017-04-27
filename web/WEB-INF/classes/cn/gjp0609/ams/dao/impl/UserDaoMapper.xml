@@ -65,7 +65,15 @@
         <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
             SELECT T_AMS_USER_SEQ.nextval FROM dual
         </selectKey>
-        INSERT INTO T_AMS_USER VALUES (#{id},#{name},#{realName},#{password},#{role},#{college.id})
+        INSERT INTO T_AMS_USER VALUES (#{id}, #{name}, #{realName}, #{password}, #{role}, #{college.id})
+    </insert>
+    <insert id="insertInteract">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+            SELECT T_AMS_INTERACT_SEQ.nextval FROM dual
+        </selectKey>
+        INSERT INTO T_AMS_INTERACT VALUES
+        (#{id}, #{title}, #{details}, '否', sysdate,
+        null, null, #{student.id}, #{teacher.id})
     </insert>
     <!-- 查询总教师行数 -->
     <select id="selectTotalRows" resultType="java.lang.Integer">
@@ -127,6 +135,7 @@
         <include refid="selectInteract"/>
         <where>
             <if test="interact.id!=null">I.ID = #{interact.id}</if>
+            <if test="interact.status!=null">I.STATUS = #{interact.status}</if>
             <if test="interact.teacher!=null">
                 <if test="interact.teacher.realName!=null">AND T.REAL_NAME like '%${interact.teacher.realName}%'</if>
                 <if test="interact.teacher.college!=null">
@@ -150,10 +159,13 @@
         FROM T_AMS_INTERACT I LEFT JOIN T_AMS_USER T ON I.TID = T.ID
         LEFT JOIN T_AMS_COLLEGE C ON T.COLLEGE_ID = C.ID
         <where>
+            <if test="status!=null">I.STATUS = #{status}</if>
             <if test="teacher!=null">
-                <if test="teacher.id!=null">T.NAME LIKE '%${teacher.name}%'</if>
+                <if test="teacher.realName!=null">AND T.REAL_NAME like '%${teacher.realName}%'</if>
                 <if test="teacher.college!=null">
-                    <if test="teacher.college.name!=null">C.NAME LIKE '%${teacher.college.name}%'</if>
+                    <if test="teacher.college.name!=null">
+                        AND C.NAME like '%${teacher.college.name}%'
+                    </if>
                 </if>
             </if>
         </where>

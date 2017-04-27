@@ -51,4 +51,6 @@ public interface UserDao {
     public int selTotalInterRows(Interact interacts);
 
     public int deleteInteract(Integer id);
+
+    public int insertInteract(Interact interact);
 }
