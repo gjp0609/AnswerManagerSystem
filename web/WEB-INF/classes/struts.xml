@@ -43,10 +43,10 @@
         </action>
 
         <action name="interactDetails" class="cn.gjp0609.ams.action.UserAction" method="interactDetails">
-            <result name="success" type="chain">
-                <param name="namespace">/</param>
-                <param name="actionName">interactDetailStu</param>
-            </result>
+            <!--<result name="success" type="chain">-->
+            <!--<param name="namespace">/</param>-->
+            <!--<param name="actionName">interactDetailStu</param>-->
+            <!--</result>-->
         </action>
 
         <action name="deleteInteract" class="cn.gjp0609.ams.action.UserAction" method="deleteInteract">

@@ -5,8 +5,12 @@ import cn.gjp0609.ams.entity.Interact;
 import cn.gjp0609.ams.entity.Page;
 import cn.gjp0609.ams.entity.User;
 import cn.gjp0609.ams.service.impl.UserServiceImpl;
+import com.alibaba.fastjson.JSON;
 import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,11 +101,17 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    public String interactDetails() {
+    public String interactDetails() throws IOException {
         Interact interact = new Interact();
         interact.setId(interactId);
         interactList = new UserServiceImpl().fuzzFindInteract(interact, new Page());
-        return SUCCESS;
+        String s = JSON.toJSONString(interactList);
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(s);
+        writer.close();
+        return null;
     }
 
     public String deleteInteract() {

@@ -135,7 +135,7 @@
             <th style="text-align: center;"><s:property value="#interact.student.realName"/></th>
             <th style="text-align: center;"><s:property value="#interact.status"/></th>
             <th style="text-align: center; ">
-                <a href="<s:url namespace='/user' action='interactDetails'/>?interactId=<s:property value="#interact.id"/>"
+                <a href="javascript:void(0)" onclick="showDetails('<s:property value="#interact.id"/>')"
                    style="text-decoration: none;" class="btn btn-info">查看详情</a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="<s:url namespace='/user' action='deleteInteract'/>?interactId=<s:property value="#interact.id"/>"
@@ -228,6 +228,22 @@
         if (interactList === "[]") $("#none").show();
         else $("#none").hide();
     });
+
+    function showDetails(id) {
+        $.ajax({
+            type: "get",
+            url: "<s:url namespace='/user' action='interactDetails'/>",
+            dataType: "json",
+            data: "interactId=" + id,
+            success: function (msg) {
+                for (var i = 0; i < msg.length; i++) {
+                    alert("title: " + msg[i].title);
+                }
+            }
+        });
+    }
+
+
 </script>
 
 <s:debug/>
